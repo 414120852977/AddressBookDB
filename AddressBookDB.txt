@@ -79,3 +79,26 @@ mysql> select * from address_book;
 
 mysql>
 
+Use case 4 :Ability to edit existing contact person using their name.
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+| firstName | lastName | address | city       | state  | zip  | phoneNumber | email         |
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+| joe       | bidden   | usa     | california | london | 5454 | 455454      | joe@gmail.com |
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> update address_book set lastName = 'ambani' where firstName = 'joe';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+| firstName | lastName | address | city       | state  | zip  | phoneNumber | email         |
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+| joe       | ambani   | usa     | california | london | 5454 | 455454      | joe@gmail.com |
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+1 row in set (0.00 sec)
+
+mysql>
