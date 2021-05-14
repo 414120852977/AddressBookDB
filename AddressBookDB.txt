@@ -373,5 +373,24 @@ mysql> select * from address_book;
 
 mysql>
 
+use case 10 :
+Ability to get number of contact persons i.e. count by type
 
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE        |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | president   |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select phoneNumber from address_book where TYPE = 'president';
++-------------+
+| phoneNumber |
++-------------+
+| 455454      |
++-------------+
+1 row in set (0.00 sec)
 
