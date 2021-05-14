@@ -155,3 +155,74 @@ mysql> select * from address_book where state = 'maharashtra';
 1 row in set (0.00 sec)
 
 mysql>
+
+
+Use case 7 : Ability to understand the size of address book by City and State.
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from address_book where state = 'maharashtra';
++-----------+----------+---------+--------+-------------+------+-------------+------------------+
+| firstName | lastName | address | city   | state       | zip  | phoneNumber | email            |
++-----------+----------+---------+--------+-------------+------+-------------+------------------+
+| mukesh    | ambani   | mumbai  | mumbai | maharashtra | 4848 | 4646        | mukesh@gmail.com |
++-----------+----------+---------+--------+-------------+------+-------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select count (state) from address_book ;
+ERROR 1630 (42000): FUNCTION address_book_service.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select count (state) from address_book where state = 'maharashtra';
+ERROR 1630 (42000): FUNCTION address_book_service.count does not exist. Check the 'Function Name Parsing and Resolution' section in the Reference Manual
+mysql> select COUNT(state) from address_book where state = 'maharashtra';
++--------------+
+| COUNT(state) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.06 sec)
+
+Database changed
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+2 rows in set (0.24 sec)
+
+mysql> select COUNT(*) from address_book ;
++----------+
+| COUNT(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.29 sec)
+
+mysql> select COUNT(*) from address_book Group by city;
++----------+
+| COUNT(*) |
++----------+
+|        1 |
+|        1 |
++----------+
+2 rows in set (0.13 sec)
+
+mysql> select COUNT(*) from address_book Group by state;
++----------+
+| COUNT(*) |
++----------+
+|        1 |
+|        1 |
++----------+
+2 rows in set (0.00 sec)
+
+mysql>
+
