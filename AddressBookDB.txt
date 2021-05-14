@@ -134,3 +134,24 @@ mysql> describe address_book;
 | email       | varchar(160) | YES  |     | NULL    |       |
 +-------------+--------------+------+-----+---------+-------+
 8 rows in set (0.25 sec)
+
+Use case 6: Ability to Retrieve Person belonging to a City or State from the Address Book.
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from address_book where state = 'maharashtra';
++-----------+----------+---------+--------+-------------+------+-------------+------------------+
+| firstName | lastName | address | city   | state       | zip  | phoneNumber | email            |
++-----------+----------+---------+--------+-------------+------+-------------+------------------+
+| mukesh    | ambani   | mumbai  | mumbai | maharashtra | 4848 | 4646        | mukesh@gmail.com |
++-----------+----------+---------+--------+-------------+------+-------------+------------------+
+1 row in set (0.00 sec)
+
+mysql>
