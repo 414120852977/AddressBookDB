@@ -225,27 +225,78 @@ mysql> select COUNT(*) from address_book Group by state;
 2 rows in set (0.00 sec)
 
 mysql>
-use case 8 : Ability to retrieve entries sorted alphabetically by Person’s name for a
-given city.
 
+mysql> alter table address_book ADD Name varchar(50) not null;
+Query OK, 0 rows affected (1.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
 mysql> select * from address_book;
-+-----------+----------+---------+------------+-------------+------+-------------+------------------+
-| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            |
-+-----------+----------+---------+------------+-------------+------+-------------+------------------+
-| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |
-| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |
-+-----------+----------+---------+------------+-------------+------+-------------+------------------+
-2 rows in set (0.06 sec)
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+
+2 rows in set (0.00 sec)
 
-mysql> select firstName,City from address_book ORDER BY firstName;
-+-----------+------------+
-| firstName | City       |
-+-----------+------------+
-| joe       | california |
-| mukesh    | mumbai     |
-+-----------+------------+
-2 rows in set (0.04 sec)
+mysql> alter table address_book ADD TYPE varchar(25);
+Query OK, 0 rows affected (0.74 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | NULL |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | NULL |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> update address_book set TYPE = 'buisnessman' where name = 'mukesh';
+Query OK, 0 rows affected (0.05 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | NULL |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | NULL |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> update address_book set TYPE = 'buisnessman' where firstName = 'mukesh';
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE        |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | NULL        |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+2 rows in set (0.05 sec)
+
+mysql> update address_book set TYPE = 'president' where name = 'joe';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update address_book set TYPE = 'president' where firstName = 'joe';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE        |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | president   |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+2 rows in set (0.00 sec)
+
+mysql>
+
 
 mysql>
 
@@ -321,3 +372,6 @@ mysql> select * from address_book;
 2 rows in set (0.00 sec)
 
 mysql>
+
+
+
