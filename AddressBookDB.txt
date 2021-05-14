@@ -102,3 +102,35 @@ mysql> select * from address_book;
 1 row in set (0.00 sec)
 
 mysql>
+Use case 5 : Ability to delete a person using person's name.
+
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+| firstName | lastName | address | city       | state  | zip  | phoneNumber | email         |
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+| joe       | ambani   | usa     | california | london | 5454 | 455454      | joe@gmail.com |
++-----------+----------+---------+------------+--------+------+-------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> delete address_book where firstName = 'joe';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where firstName = 'joe'' at line 1
+mysql> delete from address_book where firstName = 'joe';
+Query OK, 1 row affected (0.20 sec)
+
+mysql> select * from employee;
+ERROR 1146 (42S02): Table 'address_book_service.employee' doesn't exist
+mysql> describe address_book;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| firstName   | varchar(150) | NO   |     | NULL    |       |
+| lastName    | varchar(150) | NO   |     | NULL    |       |
+| address     | varchar(150) | NO   |     | NULL    |       |
+| city        | varchar(60)  | YES  |     | NULL    |       |
+| state       | varchar(40)  | NO   |     | NULL    |       |
+| zip         | int          | NO   |     | NULL    |       |
+| phoneNumber | mediumtext   | NO   |     | NULL    |       |
+| email       | varchar(160) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+8 rows in set (0.25 sec)
