@@ -394,3 +394,33 @@ mysql> select phoneNumber from address_book where TYPE = 'president';
 +-------------+
 1 row in set (0.00 sec)
 
+use case 11: ability to add person to both president and buisnessman .
+
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE        |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | president   |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> update address_book set TYPE = 'president & buisnessman' where name = 'joe';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update address_book set TYPE = 'president & buisnessman' where firstName = 'joe';
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE                    |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | president & buisnessman |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman             |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+2 rows in set (0.03 sec)
+
+mysql>
