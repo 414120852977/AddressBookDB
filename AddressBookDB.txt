@@ -639,3 +639,63 @@ mysql> select * from type;
 4 rows in set (0.00 sec)
 
 mysql>
+use case 13 :
+Ensure all retrieve queries done especially in UC 6, UC 7, UC 8 and UC 10 are working with
+new table structure
+mysql> select person_id from type where city = 'aurangabad';
+ERROR 1054 (42S22): Unknown column 'city' in 'where clause'
+mysql> select person_id from type where column city = 'aurangabad';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'column city = 'aurangabad'' at line 1
+mysql> select * from person_details where city = 'aurangabad';
++-----------+-----------+----------+---------+------------+-------------+--------+-------------+-----------------+
+| person_id | firstName | lastName | address | city       | state       | zip    | phoneNumber | email           |
++-----------+-----------+----------+---------+------------+-------------+--------+-------------+-----------------+
+|         2 | rushikesh | pathade  | paithan | aurangabad | maharashtra | 431005 |  9130167665 | rushi@gmail.com |
++-----------+-----------+----------+---------+------------+-------------+--------+-------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from person_details where state = 'maharashtra';
++-----------+-----------+----------+------------+------------+-------------+--------+-------------+-----------------+
+| person_id | firstName | lastName | address    | city       | state       | zip    | phoneNumber | email           |
++-----------+-----------+----------+------------+------------+-------------+--------+-------------+-----------------+
+|         1 | akash     | mane     | karvenagar | pune       | maharashtra | 431002 |  8459214148 | akash@gmail.com |
+|         2 | rushikesh | pathade  | paithan    | aurangabad | maharashtra | 431005 |  9130167665 | rushi@gmail.com |
++-----------+-----------+----------+------------+------------+-------------+--------+-------------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from person_details where state = 'andhrapradesh';
++-----------+-----------+----------+----------+-------+---------------+------+-------------+-----------------+
+| person_id | firstName | lastName | address  | city  | state         | zip  | phoneNumber | email           |
++-----------+-----------+----------+----------+-------+---------------+------+-------------+-----------------+
+|         3 | sneha     | patil    | jafrabad | jalna | andhrapradesh | 4505 |  9845125245 | sneha@gmail.com |
++-----------+-----------+----------+----------+-------+---------------+------+-------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(city) from person_details;
++-------------+
+| COUNT(city) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.04 sec)
+
+mysql> select COUNT(state) from person_details;
++--------------+
+| COUNT(state) |
++--------------+
+|            4 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select * from person_details where type_name = 'family';
+ERROR 1054 (42S22): Unknown column 'type_name' in 'where clause'
+mysql> select * from person_type where type_name = 'family';
++---------+-----------+
+| type_id | type_name |
++---------+-----------+
+|      10 | family    |
+|      20 | family    |
++---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql>
