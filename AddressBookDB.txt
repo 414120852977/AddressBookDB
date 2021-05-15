@@ -424,3 +424,218 @@ mysql> select * from address_book;
 2 rows in set (0.03 sec)
 
 mysql>
+
+use case 12 : draw ER diagram of addressbook ....
+
+
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| address_book_service |
+| ashok                |
+| information_schema   |
+| mysql                |
+| payroll_service      |
+| payrollservice       |
+| performance_schema   |
+| sys                  |
++----------------------+
+8 rows in set (0.50 sec)
+
+mysql> use address_book_service;
+Database changed
+mysql> show tables;
++--------------------------------+
+| Tables_in_address_book_service |
++--------------------------------+
+| address_book                   |
++--------------------------------+
+1 row in set (0.15 sec)
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE                    |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | president & buisnessman |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman             |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+2 rows in set (0.08 sec)
+
+mysql>
+mysql>
+mysql> select * from address_book where TYPE = 'buisnessman';
++-----------+----------+---------+--------+-------------+------+-------------+------------------+------+-------------+
+| firstName | lastName | address | city   | state       | zip  | phoneNumber | email            | Name | TYPE        |
++-----------+----------+---------+--------+-------------+------+-------------+------------------+------+-------------+
+| mukesh    | ambani   | mumbai  | mumbai | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman |
++-----------+----------+---------+--------+-------------+------+-------------+------------------+------+-------------+
+1 row in set (0.04 sec)
+
+mysql> select database();
++----------------------+
+| database()           |
++----------------------+
+| address_book_service |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> create table person_details (
+    -> person_id int primary key,
+    -> firstName varchar(50),
+    -> lastName varchar(50),
+    -> address varchar(50),
+    -> city varchar(50),
+    -> state varchar(150),
+    -> zip int(10),
+    -> phoneNumber bigint(15),
+    -> email varchar(50)
+    -> );
+Query OK, 0 rows affected, 2 warnings (1.32 sec)
+
+mysql> describe person_details;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| person_id   | int          | NO   | PRI | NULL    |       |
+| firstName   | varchar(50)  | YES  |     | NULL    |       |
+| lastName    | varchar(50)  | YES  |     | NULL    |       |
+| address     | varchar(50)  | YES  |     | NULL    |       |
+| city        | varchar(50)  | YES  |     | NULL    |       |
+| state       | varchar(150) | YES  |     | NULL    |       |
+| zip         | int          | YES  |     | NULL    |       |
+| phoneNumber | bigint       | YES  |     | NULL    |       |
+| email       | varchar(50)  | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+9 rows in set (0.20 sec)
+
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (1,"akash","mane","karvenagar","pune","maharashtra,431002,akash@gmail.com");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (1,"akash","mane","karvenagar","pune","maharashtra,431002,8459214148,"akash@gmail.com");
+    "> ^C
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (1,"akash","mane","karvenagar","pune","maharashtra",431002,8459214148,'akash@gmail.com');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (2,"rushikesh","pathade","paithan","aurangabad","maharashtra",431005,9130167665,'rushi@gmail.com');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (3,"sneha","patil","jafrabad","jalna","andhrapradesh",4505,9845125245,'sneha@gmail.com');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (3,"ashok","mane","aurangabad","jalna","maharahtra",431005,8180078318,'ashok@gmail.com');
+ERROR 1062 (23000): Duplicate entry '3' for key 'person_details.PRIMARY'
+mysql> insert into person_details (person_id,firstName,lastName,address,city,state,zip,phoneNumber,email) values (4,"ashok","mane","aurangabad","jalna","maharahtra",431005,8180078318,'ashok@gmail.com');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from address_book;
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+| firstName | lastName | address | city       | state       | zip  | phoneNumber | email            | Name | TYPE                    |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+| joe       | bidden   | usa     | california | london      | 5454 | 455454      | joe@gmail.com    |      | president & buisnessman |
+| mukesh    | ambani   | mumbai  | mumbai     | maharashtra | 4848 | 4646        | mukesh@gmail.com |      | buisnessman             |
++-----------+----------+---------+------------+-------------+------+-------------+------------------+------+-------------------------+
+2 rows in set (0.04 sec)
+
+mysql> select * from person_details;
++-----------+-----------+----------+------------+------------+---------------+--------+-------------+-----------------+
+| person_id | firstName | lastName | address    | city       | state         | zip    | phoneNumber | email           |
++-----------+-----------+----------+------------+------------+---------------+--------+-------------+-----------------+
+|         1 | akash     | mane     | karvenagar | pune       | maharashtra   | 431002 |  8459214148 | akash@gmail.com |
+|         2 | rushikesh | pathade  | paithan    | aurangabad | maharashtra   | 431005 |  9130167665 | rushi@gmail.com |
+|         3 | sneha     | patil    | jafrabad   | jalna      | andhrapradesh |   4505 |  9845125245 | sneha@gmail.com |
+|         4 | ashok     | mane     | aurangabad | jalna      | maharahtra    | 431005 |  8180078318 | ashok@gmail.com |
++-----------+-----------+----------+------------+------------+---------------+--------+-------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> create table person_type (
+    -> type_id int primary key,
+    -> type_name varchar(150),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table person_type (
+    -> type_id int PRIMARY KEY,
+    -> type_name varchar(150),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table person_type (
+    -> type_id int PRIMARY KEY,
+    -> type_name varchar(150)
+    -> );
+Query OK, 0 rows affected (1.30 sec)
+
+mysql> select * from person_type;
+Empty set (0.11 sec)
+
+mysql> describe person_type;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| type_id   | int          | NO   | PRI | NULL    |       |
+| type_name | varchar(150) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> insert into person_type values(10,'family');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into person_type values(20,'family');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into person_type values(30,'friend');
+Query OK, 1 row affected (0.05 sec)
+
+mysql>  insert into person_type values(40,'friend');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from person_type;
++---------+-----------+
+| type_id | type_name |
++---------+-----------+
+|      10 | family    |
+|      20 | family    |
+|      30 | friend    |
+|      40 | friend    |
++---------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> create table type (
+    -> person_id int,
+    -> FOREIGN KEY (person_id) REFERENCES person_details(person_id),
+    -> type_id int,
+    -> FOREIGN KEY(type_id) REFERENCES person_type(type_id)
+    -> );
+Query OK, 0 rows affected (1.51 sec)
+
+mysql> describe type;
++-----------+------+------+-----+---------+-------+
+| Field     | Type | Null | Key | Default | Extra |
++-----------+------+------+-----+---------+-------+
+| person_id | int  | YES  | MUL | NULL    |       |
+| type_id   | int  | YES  | MUL | NULL    |       |
++-----------+------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> insert into type values(1,10);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into type values(2,20);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into type values(3,30);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into type values(4,40);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from type;
++-----------+---------+
+| person_id | type_id |
++-----------+---------+
+|         1 |      10 |
+|         2 |      20 |
+|         3 |      30 |
+|         4 |      40 |
++-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
